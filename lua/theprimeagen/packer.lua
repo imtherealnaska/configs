@@ -6,12 +6,9 @@ vim.cmd.packadd('packer.nvim')
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'rhysd/vim-color-spring-night'
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
+    use { 'j-hui/fidget.nvim', tag = 'main' }
+    use 'simrat39/rust-tools.nvim'
+    
     use({
         "folke/trouble.nvim",
         config = function()
@@ -32,9 +29,19 @@ return require('packer').startup(function(use)
             ts_update()
         end, }
     use("nvim-treesitter/playground")
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
+        -- or                            , branch = '0.1.x',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+
     use("mbbill/undotree")
     use("nvim-treesitter/nvim-treesitter-context");
-    use("sainnhe/everforest")
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
@@ -57,11 +64,7 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         }
     }
-    use { 'neoclide/coc.nvim', branch = 'release' }
-    use 'simrat39/rust-tools.nvim'
     use "chriskempson/base16-vim"
-    -- Install without configuration
-    -- Using Packer
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end

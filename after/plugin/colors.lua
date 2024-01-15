@@ -6,4 +6,4 @@ function ColorMyPencils(color)
 	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 end
-ColorMyPencils("base16-tomorrow-night")
+ColorMyPencils("base16-gruvbox-dark-hard")
