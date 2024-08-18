@@ -8,18 +8,6 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     use { 'j-hui/fidget.nvim', tag = 'main' }
     use 'simrat39/rust-tools.nvim'
-    
-    use({
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-                icons = false,
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    })
     use 'feline-nvim/feline.nvim'
     use({ 'rose-pine/neovim', as = 'rose-pine' })
     use {
@@ -64,7 +52,6 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         }
     }
-    use "chriskempson/base16-vim"
     use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
