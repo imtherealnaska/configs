@@ -6,10 +6,7 @@ vim.cmd.packadd('packer.nvim')
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use { 'j-hui/fidget.nvim', tag = 'main' }
     use 'simrat39/rust-tools.nvim'
-    use 'feline-nvim/feline.nvim'
-    use({ 'rose-pine/neovim', as = 'rose-pine' })
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
@@ -23,7 +20,9 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
-    use("wincent/base16-nvim")
+    use {
+        "ray-x/lsp_signature.nvim",
+    }
 
     use("mbbill/undotree")
     use("nvim-treesitter/nvim-treesitter-context");
@@ -31,6 +30,9 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
+    -- colorscheme
+    use "pbrisbin/vim-colors-off"
+    use { "ntk148v/komau.vim" } -- Packer
 
     use {
         'VonHeikemen/lsp-zero.nvim',
