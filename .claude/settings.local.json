@@ -16,7 +16,18 @@
       "Read(/Users/narendrakapashi/.local/share/nvim/lazy/nvim-lspconfig/**)",
       "Bash(timeout:*)",
       "Bash(git restore:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(brew install:*)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/base16-nvim/colors/**)",
+      "Read(/Users/narendrakapashi/.cache/nvim/**)",
+      "Read(/Users/narendrakapashi/.cache/**)",
+      "Read(/Users/narendrakapashi/.local/state/nvim/**)",
+      "Bash(rust-analyzer:*)",
+      "Bash(rustup --version)",
+      "Bash(rustc --version)",
+      "Bash(rustup component:*)",
+      "Read(/Users/narendrakapashi/.local/state/nvim/**)"
     ],
     "deny": []
   }
