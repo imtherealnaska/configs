@@ -4,7 +4,19 @@
       "Bash(git checkout:*)",
       "Bash(nvim:*)",
       "Bash(rg:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Read(/tmp/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/nvim-lspconfig/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/nvim-lspconfig/plugin/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/nvim-lspconfig/plugin/**)",
+      "Bash(sed:*)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/nvim-lspconfig/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/nvim-lspconfig/**)",
+      "Bash(timeout:*)",
+      "Bash(git restore:*)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }
