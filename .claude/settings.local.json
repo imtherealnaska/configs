@@ -27,7 +27,8 @@
       "Bash(rustup --version)",
       "Bash(rustc --version)",
       "Bash(rustup component:*)",
-      "Read(/Users/narendrakapashi/.local/state/nvim/**)"
+      "Read(/Users/narendrakapashi/.local/state/nvim/**)",
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/**)"
     ],
     "deny": []
   }

@@ -66,8 +66,8 @@ vim.opt.colorcolumn = '80'
 --- except in Rust where the rule is 100 characters
 vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
 -- show more hidden characters
--- also, show tabs nicer
-vim.opt.listchars = 'tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•'
+-- enable system clipboard integration
+vim.opt.clipboard = 'unnamedplus'
 
 -------------------------------------------------------------------------------
 --
@@ -87,23 +87,15 @@ vim.keymap.set('n', 'g*', 'g*zz', { silent = true })
 vim.keymap.set('n', '?', '?\\v')
 vim.keymap.set('n', '/', '/\\v')
 vim.keymap.set('c', '%s/', '%sm/')
--- open new file adjacent to current file
-vim.keymap.set('n', '<leader>o', ':e <C-R>=expand("%:p:h") . "/" <cr>')
--- no arrow keys --- force yourself to use the home row
-vim.keymap.set('n', '<up>', '<nop>')
-vim.keymap.set('n', '<down>', '<nop>')
-vim.keymap.set('i', '<up>', '<nop>')
-vim.keymap.set('i', '<down>', '<nop>')
-vim.keymap.set('i', '<left>', '<nop>')
-vim.keymap.set('i', '<right>', '<nop>')
--- let the left and right arrows be useful: they can switch buffers
-vim.keymap.set('n', '<left>', ':bp<cr>')
-vim.keymap.set('n', '<right>', ':bn<cr>')
--- make j and k move by visual line, not actual line, when text is soft-wrapped
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
 -- handy keymap for replacing up to next _ (like in variable names)
 vim.keymap.set('n', '<leader>m', 'ct_')
+-- open file explorer
+vim.keymap.set('n', '<leader>q', ':Ex<CR>')
+-- universal copy/paste keymaps
+vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Copy to system clipboard' })
+vim.keymap.set('n', '<C-v>', '"+p', { desc = 'Paste from system clipboard' })
+vim.keymap.set('i', '<C-v>', '<C-r>+', { desc = 'Paste from system clipboard in insert mode' })
+vim.keymap.set('v', '<C-v>', '"+p', { desc = 'Paste from system clipboard in visual mode' })
 -- F1 is pretty close to Esc, so you probably meant Esc
 vim.keymap.set('', '<F1>', '<Esc>')
 vim.keymap.set('i', '<F1>', '<Esc>')
@@ -154,12 +146,16 @@ require("lazy").setup({
 			vim.cmd([[hi Normal ctermbg=NONE]])
 			-- Less visible window separator
 			vim.api.nvim_set_hl(0, "WinSeparator", { fg = 1250067 })
-			-- Make comments more prominent -- they are important.
+			-- Make comments orange
+		-- 	vim.api.nvim_set_hl(0, 'Comment', { fg = '#FFA500' })
+			-- Make it clearly visible which argument we're at.
 			local bools = vim.api.nvim_get_hl(0, { name = 'Boolean' })
 			vim.api.nvim_set_hl(0, 'Comment', bools)
-			-- Make it clearly visible which argument we're at.
 			local marked = vim.api.nvim_get_hl(0, { name = 'PMenu' })
 			vim.api.nvim_set_hl(0, 'LspSignatureActiveParameter', { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true })
+			-- Set inline hint colors to pink
+		--	vim.api.nvim_set_hl(0, 'LspInlayHint', { fg = '#FF69B4' })
+		--	vim.api.nvim_set_hl(0, 'CmpGhostText', { fg = '#FF69B4' })
 		end
 	},
 	-- nice bar at the bottom
@@ -210,7 +206,7 @@ require("lazy").setup({
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function()
 			local builtin = require('telescope.builtin')
-			vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
+			vim.keymap.set('n', '<leader>f', builtin.fd, { desc = 'Telescope find files' })
 			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 			vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
@@ -269,7 +265,7 @@ require("lazy").setup({
 					vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
 					vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
 					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-					vim.keymap.set('n', '<leader>f', function()
+					vim.keymap.set('n', '<leader>ff', function()
 						vim.lsp.buf.format { async = true }
 					end, opts)
 
