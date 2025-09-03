@@ -10,19 +10,6 @@ vim.g.mapleader = ","
 vim.opt.foldenable = false
 vim.opt.foldmethod = 'manual'
 vim.opt.foldlevelstart = 99
--- very basic "continue indent" mode (autoindent) is always on in neovim
--- could try smartindent/cindent, but meh.
--- vim.opt.cindent = true
--- XXX
--- vim.opt.cmdheight = 2
--- vim.opt.completeopt = 'menuone,noinsert,noselect'
--- not setting updatedtime because I use K to manually trigger hover effects
--- and lowering it also changes how frequently files are written to swap.
--- vim.opt.updatetime = 300
--- if key combos seem to be "lagging"
--- http://stackoverflow.com/questions/2158516/delay-before-o-opens-a-new-line
--- vim.opt.timeoutlen = 300
--- keep more context on screen while scrolling
 vim.opt.scrolloff = 2
 -- never show me line breaks if they're not there
 vim.opt.wrap = false
@@ -38,14 +25,6 @@ vim.opt.splitbelow = true
 -- infinite undo!
 -- NOTE: ends up in ~/.local/state/nvim/undo/
 vim.opt.undofile = true
---" Decent wildmenu
--- in completion, when there is more than one match,
--- list all matches, and only complete to longest common match
-vim.opt.wildmode = 'list:longest'
--- when opening a file with a command (like :e),
--- don't suggest files like there:
-vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
--- tabs: go big or go home
 vim.opt.shiftwidth = 8
 vim.opt.softtabstop = 8
 vim.opt.tabstop = 8
@@ -206,10 +185,27 @@ require("lazy").setup({
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function()
 			local builtin = require('telescope.builtin')
-			vim.keymap.set('n', '<leader>f', builtin.fd, { desc = 'Telescope find files' })
+			local telescope = require('telescope')
+			
+			telescope.setup({
+				defaults = {
+					vimgrep_arguments = {
+						'rg',
+						'--color=never',
+						'--no-heading',
+						'--with-filename',
+						'--line-number',
+						'--column',
+						'--smart-case'
+					},
+				}
+			})
+			
+			vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
 			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 			vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+			vim.keymap.set('n', '<leader>gr', builtin.grep_string, { desc = 'Telescope grep string' })
 		end
 	},
 	-- LSP Zero
@@ -356,6 +352,20 @@ require("lazy").setup({
 			local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 			local cmp = require('cmp')
 			cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+		end
+	},
+	-- git integration
+	{
+		'tpope/vim-fugitive',
+		config = function()
+			-- Git keymaps
+			vim.keymap.set('n', '<leader>gs', ':Git<CR>', { desc = 'Git status' })
+			vim.keymap.set('n', '<leader>ga', ':Git add .<CR>', { desc = 'Git add all' })
+			vim.keymap.set('n', '<leader>gc', ':Git commit<CR>', { desc = 'Git commit' })
+			vim.keymap.set('n', '<leader>gp', ':Git push<CR>', { desc = 'Git push' })
+			vim.keymap.set('n', '<leader>gl', ':Git log<CR>', { desc = 'Git log' })
+			vim.keymap.set('n', '<leader>gb', ':Git blame<CR>', { desc = 'Git blame' })
+			vim.keymap.set('n', '<leader>gd', ':Gdiffsplit<CR>', { desc = 'Git diff split' })
 		end
 	},
 })
