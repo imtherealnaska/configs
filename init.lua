@@ -265,7 +265,7 @@ require("lazy").setup({
 					vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
 					vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
 					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-					vim.keymap.set('n', '<leader>ff', function()
+					vim.keymap.set('n', '<leader>c', function()
 						vim.lsp.buf.format { async = true }
 					end, opts)
 
@@ -337,6 +337,25 @@ require("lazy").setup({
 					border = "none"
 				},
 			})
+		end
+	},
+	-- auto pairs for brackets, quotes, etc.
+	{
+		'windwp/nvim-autopairs',
+		event = "InsertEnter",
+		config = function()
+			require('nvim-autopairs').setup({
+				check_ts = true,
+				ts_config = {
+					lua = {'string'},-- it will not add a pair on that treesitter node
+					javascript = {'template_string'},
+					java = false,-- don't check treesitter on java
+				}
+			})
+			-- integration with nvim-cmp
+			local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+			local cmp = require('cmp')
+			cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 		end
 	},
 })
