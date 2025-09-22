@@ -78,6 +78,9 @@ vim.keymap.set('v', '<C-v>', '"+p', { desc = 'Paste from system clipboard in vis
 -- F1 is pretty close to Esc, so you probably meant Esc
 vim.keymap.set('', '<F1>', '<Esc>')
 vim.keymap.set('i', '<F1>', '<Esc>')
+-- Ctrl+j acts as Escape in both normal and insert mode
+vim.keymap.set('n', '<C-j>', '<Esc>')
+vim.keymap.set('i', '<C-j>', '<Esc>')
 
 -------------------------------------------------------------------------------
 --
@@ -120,7 +123,7 @@ require("lazy").setup({
 		lazy = false, -- load at start
 		priority = 1000, -- load first
 		config = function()
-			vim.cmd([[colorscheme gruvbox-dark-hard]])
+			vim.cmd([[colorscheme atelier-dune]])
 			vim.o.background = 'dark'
 			vim.cmd([[hi Normal ctermbg=NONE]])
 			-- Less visible window separator
@@ -186,7 +189,7 @@ require("lazy").setup({
 		config = function()
 			local builtin = require('telescope.builtin')
 			local telescope = require('telescope')
-			
+
 			telescope.setup({
 				defaults = {
 					vimgrep_arguments = {
@@ -200,7 +203,7 @@ require("lazy").setup({
 					},
 				}
 			})
-			
+
 			vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
 			vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
@@ -298,6 +301,8 @@ require("lazy").setup({
 					['<C-f>'] = cmp.mapping.scroll_docs(4),
 					['<C-Space>'] = cmp.mapping.complete(),
 					['<C-e>'] = cmp.mapping.abort(),
+					['<C-n>'] = cmp.mapping.select_next_item(),
+					['<C-p>'] = cmp.mapping.select_prev_item(),
 					-- Accept currently selected item.
 					-- Set `select` to `false` to only confirm explicitly selected items.
 					['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
@@ -305,6 +310,7 @@ require("lazy").setup({
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp' },
 				}, {
+					{ name = 'buffer' },
 					{ name = 'path' },
 				}),
 				experimental = {
