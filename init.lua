@@ -72,9 +72,8 @@ vim.keymap.set('n', '<leader>m', 'ct_')
 vim.keymap.set('n', '<leader>q', ':Ex<CR>')
 -- universal copy/paste keymaps
 vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Copy to system clipboard' })
-vim.keymap.set('n', '<C-v>', '"+p', { desc = 'Paste from system clipboard' })
-vim.keymap.set('i', '<C-v>', '<C-r>+', { desc = 'Paste from system clipboard in insert mode' })
-vim.keymap.set('v', '<C-v>', '"+p', { desc = 'Paste from system clipboard in visual mode' })
+-- Map Ctrl+V to Visual Line mode
+vim.keymap.set('n', '<C-v>', 'V', { desc = 'Enter Visual Line mode' })
 -- F1 is pretty close to Esc, so you probably meant Esc
 vim.keymap.set('', '<F1>', '<Esc>')
 vim.keymap.set('i', '<F1>', '<Esc>')
@@ -209,6 +208,7 @@ require("lazy").setup({
 			vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 			vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 			vim.keymap.set('n', '<leader>gr', builtin.grep_string, { desc = 'Telescope grep string' })
+			vim.keymap.set('n', '<leader>s', builtin.lsp_document_symbols, { desc = 'Telescope LSP document symbols' })
 		end
 	},
 	-- LSP Zero
