@@ -28,7 +28,20 @@
       "Bash(rustc --version)",
       "Bash(rustup component:*)",
       "Read(/Users/narendrakapashi/.local/state/nvim/**)",
-      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/**)"
+      "Read(/Users/narendrakapashi/.local/share/nvim/lazy/**)",
+      "Bash(clangd --version)",
+      "Bash(brew info *)",
+      "Bash(ccls --version)",
+      "Bash(bear --version)",
+      "Bash(xargs strings)",
+      "Bash(gcc --version)",
+      "Bash(gcc -E -x c /dev/null -v)",
+      "Bash(brew list *)",
+      "Bash(gcc-14 --print-file-name=include)",
+      "Bash(gcc-13 --print-file-name=include)",
+      "Bash(gcc-14 --print-search-dirs)",
+      "Bash(gcc-14 -E -x c /dev/null -v)",
+      "Bash(clangd --background-index --clang-tidy --header-insertion=iwyu --completion-style=detailed --function-arg-placeholders=true --check=/dev/null)"
     ],
     "deny": []
   }
